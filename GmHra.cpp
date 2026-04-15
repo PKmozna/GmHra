@@ -23,12 +23,12 @@ int main(){
     cout << "           $$$   $$$   $$          $$$   $$$  $$      @ $$$    $$$ $$$$           $$$     $$$$  $$$    $$  $$$   $$$$           " << endl;
     cout << "           $$$    $$$  $$$$$$$$$  $$$$$$$$$$  $$$$$$$$$ $$$    $$$ $$$$           $$$     $$$$  $$$$$$$$$  $$$    $$$           " << endl;
     cout << "           $$$    @$$            @$$$$$$$$              $$$    $$  $$$$           $$$     $$$   $$$$$$$$$   $$    $$$           " << endl;
-int dmg_stat;
-int acc_stat;
-int hp_stat;
-int rng_stat;
+int dmg_stat = 0;
+int acc_stat = 0;
+int hp_stat = 0;
+int rng_stat = 0;
 int clas = 1;
-int vyber;
+char opakovat = 0;
 string classs[4]={"Gunslinger" ,"Outlaw" ,"Sherif" , "Gold Digger"};
 cout << "[    ACC=presnost   ]" << endl ;
 cout << "[    DMG=poskozeni  ]" << endl ;
@@ -51,31 +51,32 @@ do{
     cout << "Zadejte cisla 1,2,3 nebo 4." << endl;
     }
 cin>> clas;
+
 }while(clas<0||clas>4);
 switch (clas) {
     case 1:
-        cout << "Vybral is postavu " << classs[clas] << "." << endl;
+        cout << "Vybral si postavu " << classs[clas-1] << "." << endl;
         acc_stat = 3;
         dmg_stat = 2;
         hp_stat = 2;
         rng_stat = 1;
         break;
     case 2:
-        cout << "Vybral is postavu " << classs[clas] << "." << endl;
+        cout << "Vybral si postavu " << classs[clas-1] << "." << endl;
         acc_stat = 2;
         dmg_stat = 3;
         hp_stat = 2;
         rng_stat = 1;
         break;
     case 3:
-        cout << "Vybral is postavu " << classs[clas] << "." << endl;
+        cout << "Vybral si postavu " << classs[clas-1] << "." << endl;
         acc_stat = 2;
         dmg_stat = 2;
         hp_stat = 3;
         rng_stat = 1;
         break;
     case 4:
-        cout << "Vybral is postavu " << classs[clas] << "." << endl;
+        cout << "Vybral si postavu " << classs[clas-1] << "." << endl;
         acc_stat = 1;
         dmg_stat = 1;
         hp_stat = 1;
@@ -90,10 +91,10 @@ switch (clas) {
  cout << "note: to ze mas zivozy na 3ce neznamena to ze mas 4 zivoty" << endl;
  cout << "prejes si zmenit postavu? (a/n):";
  do{
-    if(vyber!=41&&vyber!=110){
-        cout << endl << "zadejte a nebo n (malym)0" << endl;
+    if(opakovat!='a' && opakovat!='n'){
+        cout << endl << "zadejte a nebo n (malym)" << endl;
     }
-cin >> vyber;
-}while(vyber!=41&&vyber!=110);
-}while();
+cin >> opakovat;
+}while(opakovat!='a' && opakovat!='n');
+}while(opakovat=='a');
 }
