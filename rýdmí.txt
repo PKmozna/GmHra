@@ -1,0 +1,3 @@
+#include <conio.h>
+	Library kterou požívám pro vypysování háčků a čárek,
+    a ćtení zmáćknutých kláves (Pro používání entrů pro progresování v textu).
