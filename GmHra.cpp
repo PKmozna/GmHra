@@ -1,7 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <thread>
-#include <chrono>
+#include <cstdlib>
 
 using namespace std;
 
@@ -54,27 +54,78 @@ void getZbran(int x, string &zbran, int &zbranDmg, int &zbranAcc) {
     break;
     }
 }
-    void getZbran(int x, string &clothes, int &zivot) {
+
+bool checkObleceni(int x, string* clothes){
+switch (x){
+    case 1:
+        if(clothes[x]=="Vesta"){
+            return true;
+        }else{
+            return false;
+        }
+    break;
+    case 2:
+        if(clothes[x]=="Kovbojské kalhoty"){
+            return true;
+        }else{
+            return false;
+        }
+    break;
+    case 3:
+        if(clothes[x]=="Čepice"){
+            return true;
+        }else{
+            return false;
+        }
+    break;
+    case 4:
+        if(clothes[x]=="Trench Coat"){
+            return true;
+        }else{
+            return false;
+        }
+    break;
+    case 5:
+        if(clothes[x]=="Kovový Plát"){
+            return true;
+        }else{
+            return false;
+        }
+    break;
+    default:
+    cout << "----------------------------" << endl;
+    cout << endl;
+    cout << endl;
+    cout << "Spatny Kod: RESTARTUJ HRU!" << endl;
+    cout << endl;
+    cout << endl;
+    cout << "----------------------------" << endl;
+    return false;
+    break;
+    }
+}
+
+void getObleceni(int x, string* clothes, int &hp_stat) {
     switch (x) {
-        case 1://Vesta
-            clothes="Vesta";
-            zivot+=1;
+        case 1:
+            clothes[x]="Vesta";
+            hp_stat +=1;
         break;
-        case 2://Sedlaŕské kalhoty
-            clothes="Sedlařské klahoty";
-            zivot+=1;
+        case 2:
+            clothes[x]="Kovbojské kalhoty";
+            hp_stat+=1;
         break;
-        case 3://čepice
-            clothes="Čepice";
-            zivot+=1;
+        case 3:
+            clothes[x]="Čepice";
+            hp_stat+=1;
         break;
-        case 4://Trench Coat
-            clothes="Trench Coat";
-            zivot+=1;
+        case 4:
+            clothes[x]="Trench Coat";
+            hp_stat+=1;
         break;
-        case 5://plat
-            clothes="Plát pod trikem";
-            zivot+=2;
+        case 5:
+            clothes[x]="Kovový Plát";
+            hp_stat+=2;
         break;
         default:
     cout << "----------------------------" << endl;
@@ -117,6 +168,7 @@ char opakovat = 'n';
 int vyber = 0;
 int zbranDmg = 0;
 int zbranAcc = 0;
+string clothes[5];
 string zbran = "err";
 string classs;
 cout << "[    ACC=přesnost   ]" << endl ;
@@ -214,13 +266,13 @@ cin >> opakovat;
 }while(opakovat=='n');
 cout << "Je rok 1908 (Enter)";
 enter();
-cout << "Jsi majitelem maleho pozemku s domkem pobliíš" << endl << "endl Dubois v Americkém Wayomingu.";
+cout << "Jsi majitelem maleho pozemku s domkem pobliíš" << endl << "Duboisu v Americkém Wayomingu.";
 enter();
 cout << "Za opaskem ti cinká cattleman revolver (0 acc, 0 dmg) po tvém tátovi.";
 enter();
 cout << "Přesně tak, jak to otcové zakladatelé zamýšleli...";
 enter();
-cout << "Deš do duboisu. Už si zapoměl proč, ale je to vlastné jedno.";
+cout << "Deš do Duboisu. Už si zapoměl proč, ale je to vlastné jedno.";
 enter();
                                                                                         //Vesnice
 cout << "Chceš jít do nějákého obchodu?" << endl;
@@ -248,12 +300,12 @@ switch (vyber) {                                                                
 
     do{
     vyber=0;
-    if(vyber<0||vyber>4){
-    cout << "Zadejte cisla 1,2,3 nebo 4." << endl;
+    if(vyber<0||vyber>3){
+    cout << "Zadejte cisla 1,2 nebo 3." << endl;
     }
 cout << "Vyber:";
 cin>> vyber;
-        }while(vyber<0||vyber>4);
+        }while(vyber<0||vyber>3);
         
     switch (vyber) {
         case 1:
@@ -293,10 +345,70 @@ cin >> opakovat;
 }while(opakovat=='n');
 break;
 
+case 2 :                                                             //Obleceni
+    do{
+        cout << "Dnešní nabídka:\n";
+        cout << "(Note: Když is koupíš nové oblećení, přidává se k tomu starému)\n";
+        cout << "1. $350 Kovbojske Kalohty (+1 Hp)\n";
+        cout << "2. $350 Čepice (+1 Hp)\n";
+
+    do{
+    vyber=0;
+    if(vyber<0||vyber>3){
+    cout << "Zadejte cisla 1,2 nebo 3." << endl;
+    }
+cout << "Vyber:";
+cin>> vyber;
+        }while(vyber<0||vyber>3);
+        
+    switch (vyber) {
+        case 1:
+                if(checkObleceni(2, clothes)){
+            cout << "Už máš tenhle kus oblečeni\n";
+        }else if (cash>=350){
+                cash-=350;
+                getObleceni(2, clothes, hp_stat);
+                cout << "+Kovbojske Kalohty\n";
+                cout<<"Máš $" << cash << " a " << hp_stat << "hp levl.\n";
+            }else{
+                cout<<"Nemáš dost peněz! ($" << cash << ")\n";
+            }
+        break;
+        case 2:
+        if(checkObleceni(3, clothes)){
+            cout << "Už máš tenhle kus oblečeni\n";
+        }else if (cash>=350){
+                cash-=350;
+                getObleceni(3, clothes, hp_stat);
+                cout << "+Čepice\n";
+                cout<<"Máš $" << cash << " a " << hp_stat << "hp levl.\n";
+            }else{
+                cout<<"Nemáš dost peněz! ($" << cash << ")\n";
+            }
+        break;
+
+        default : 
+            cout << "----------------------------\n\n\n";
+            cout << "Spatny Input: RESTARTUJ HRU!\n\n\n";
+            cout << "----------------------------\n";
+        break;
+}
+    cout << "chceš pokračovat? (a/n):";
+ do{
+    if(opakovat!='a' && opakovat!='n'){
+        cout << endl << "zadejte a nebo n (malým)" << endl;
+    }
+cin >> opakovat;
+}while(opakovat!='a' && opakovat!='n');
+}while(opakovat=='n');
+break;
+
+
     default : 
         cout << "----------------------------\n\n\n";
         cout << "Spatny Input: RESTARTUJ HRU!\n\n\n";
         cout << "----------------------------\n";
+    break;
 }
 vyber=0;
 }
