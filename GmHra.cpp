@@ -11,6 +11,29 @@ void enter() {
     cout << endl;
 }
 
+int getVyber(int min, int max) {
+    int vyber;
+    do{
+        cout << "vyber: ";
+        cin >> vyber;
+            if(vyber < min || vyber > max){
+            cout << "zadejte čísla " << min << " až " << max << ".\n";
+        }
+    }while(vyber < min || vyber > max);
+    return vyber;
+}
+
+int getAn() {
+    char an;
+    do{
+        cin >> an;
+            if(an != 'a' && an != 'n'){
+            cout << "Zadejte a/n (malým).\n";
+        }
+    }while(an != 'a' && an != 'n');
+    return an;
+}
+
 void getZbran(int x, string &zbran, int &zbranDmg, int &zbranAcc) {
     switch (x) {
         case 1://schofield
@@ -65,7 +88,7 @@ switch (x){
         }
     break;
     case 2:
-        if(clothes[x]=="Kovbojské kalhoty"){
+        if(clothes[x]=="Kovbojské Kalhoty"){
             return true;
         }else{
             return false;
@@ -112,7 +135,7 @@ void getObleceni(int x, string* clothes, int &hp_stat) {
             hp_stat +=1;
         break;
         case 2:
-            clothes[x]="Kovbojské kalhoty";
+            clothes[x]="Kovbojské Kalhoty";
             hp_stat+=1;
         break;
         case 3:
@@ -187,14 +210,7 @@ cout << "4.      Gold Digger" << endl;
 cout << "      550$|1|1|1|4|" << endl;
 cout << "-------------------" << endl;
 do{
-do{
-    if(clas<1||clas>5){
-    cout << "Zadejte čísla 1,2,3 nebo 4." << endl;
-    }
-cout << "Výběr:";
-cin>> clas;
-
-}while(clas<1||clas>5);
+clas=getVyber(1,5);
 switch (clas) {
     case 1:
         classs = "Gunslinger";
@@ -257,12 +273,7 @@ switch (clas) {
  cout << "štěsti " << rng_stat << endl;
  cout << "note: to že máš životy na 3ce neznamená to že máš 4 životy." << endl;
  cout << "chceš pokračovat s tvojí postavou? (a/n):";
- do{
-    if(opakovat!='a' && opakovat!='n'){
-        cout << endl << "zadejte a nebo n (malým)" << endl;
-    }
-cin >> opakovat;
-}while(opakovat!='a' && opakovat!='n');
+opakovat=getAn();
 }while(opakovat=='n');
 cout << "Je rok 1908 (Enter)";
 enter();
@@ -275,21 +286,16 @@ enter();
 cout << "Deš do Duboisu. Už si zapoměl proč, ale je to vlastné jedno.";
 enter();
                                                                                         //Vesnice
+do{
 cout << "Chceš jít do nějákého obchodu?" << endl;
 cout << "   1-Obchod se zbraněmi" << endl;
 cout << "   2-Obchod s oblblečením" << endl;
 cout << "   3-Drugstore" << endl;
 cout << "   4-Jít dál" << endl;
 
-do{
-    vyber=0;
-    if(vyber<0||vyber>4){
-    cout << "Zadejte cisla 1,2,3 nebo 4." << endl;
-    }
-cout << "Vyber:";
-cin>> vyber;
-        }while(vyber<0||vyber>4);
+vyber=getVyber(1,4);
 
+if(vyber!=4){
 switch (vyber) {                                                                        // zbrane
     case 1 :
     do{
@@ -298,14 +304,7 @@ switch (vyber) {                                                                
         cout << "1. $350 Schofield (1 dmg)\n";
         cout << "2. $400 Doublebarrel (1 acc)\n";
 
-    do{
-    vyber=0;
-    if(vyber<0||vyber>3){
-    cout << "Zadejte cisla 1,2 nebo 3." << endl;
-    }
-cout << "Vyber:";
-cin>> vyber;
-        }while(vyber<0||vyber>3);
+    vyber=getVyber(1,2);
         
     switch (vyber) {
         case 1:
@@ -336,12 +335,7 @@ cin>> vyber;
         break;
 }
     cout << "chceš pokračovat? (a/n):";
- do{
-    if(opakovat!='a' && opakovat!='n'){
-        cout << endl << "zadejte a nebo n (malým)" << endl;
-    }
-cin >> opakovat;
-}while(opakovat!='a' && opakovat!='n');
+    opakovat=getAn();
 }while(opakovat=='n');
 break;
 
@@ -394,12 +388,9 @@ cin>> vyber;
         break;
 }
     cout << "chceš pokračovat? (a/n):";
- do{
-    if(opakovat!='a' && opakovat!='n'){
-        cout << endl << "zadejte a nebo n (malým)" << endl;
-    }
-cin >> opakovat;
-}while(opakovat!='a' && opakovat!='n');
+
+    opakovat=getAn();
+
 }while(opakovat=='n');
 break;
 
@@ -410,5 +401,6 @@ break;
         cout << "----------------------------\n";
     break;
 }
-vyber=0;
+}
+}while(vyber != 4);
 }
