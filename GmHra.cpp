@@ -36,32 +36,32 @@ int getAn() {
 
 void getZbran(int x, string &zbran, int &zbranDmg, int &zbranAcc) {
     switch (x) {
-        case 1://schofield
+        case 1:
             zbran="Schofield Revolver";
             zbranDmg=0;
             zbranAcc=1;
         break;
-        case 2://double barrel
+        case 2:
             zbran="Double Barrel";
             zbranDmg=1;
             zbranAcc=0;
         break;
-        case 3://Lichtfield
+        case 3:
             zbran="Litchfield Repeater";
             zbranDmg=2;
             zbranAcc=1;
         break;
-        case 4://Winchester
+        case 4:
             zbran="Winchester Repeater";
             zbranDmg=2;
             zbranAcc=2;
         break;
-        case 5://schofield
+        case 5:
             zbran="Carabine";
             zbranDmg=3;
             zbranAcc=1;
         break;
-        case 6://Winchester Shotgun
+        case 6:
             zbran="Winchester Shotgun";
             zbranDmg=1;
             zbranAcc=0;
@@ -128,27 +128,35 @@ switch (x){
     }
 }
 
-void getObleceni(int x, string* clothes, int &hp_stat) {
+int hpMax(int &hpStat) {
+     return hpStat*10;
+ }
+
+void doHeal(int x, int &hp, int &hpStat) {
+    hp += hpMax(hpStat)*x/100;
+} 
+
+void getObleceni(int x, string* clothes, int &hpStat) {
     switch (x) {
         case 1:
             clothes[x]="Vesta";
-            hp_stat +=1;
+            hpStat +=1;
         break;
         case 2:
             clothes[x]="Kovbojské Kalhoty";
-            hp_stat+=1;
+            hpStat+=1;
         break;
         case 3:
             clothes[x]="Čepice";
-            hp_stat+=1;
+            hpStat+=1;
         break;
         case 4:
             clothes[x]="Trench Coat";
-            hp_stat+=1;
+            hpStat+=1;
         break;
         case 5:
             clothes[x]="Kovový Plát";
-            hp_stat+=2;
+            hpStat+=2;
         break;
         default:
     cout << "----------------------------" << endl;
@@ -171,7 +179,7 @@ int main(){
     cout << "                                    $   $$$$$ $@  $$   $        $$$$$ $   $ $$$$$$ $$$$$ $$$$$                                 " << endl;
     cout << "                                                                                                                                " << endl;
     cout << "                       $$$$$$$$$ $$$$$$$$    $$$$$$$$$                                          $$$$$$$$$                       " << endl;
-    cout << "           $$$$$$$$$$  $$$$$$$$$ $$$$$$$$$$  $$$$$$$$$  $$$   $$$   $$$$$$$$$ $$$$$$$$$$$ $$$$  $$$$$$$$$  $$$$   $$$           " << endl;
+    cout << "           $$$$$$$$$$  $$$$$$$$$ $$$$$$$$$$  $$$$$$$$$  $$$   $$$   $$$$$$$$$  $$$$$$$$$$$ $$$$  $$$$$$$$$  $$$$   $$$           " << endl;
     cout << "           $$$    $$$  $$@         $$$   $$$  $$        $$$$ $$$$$  $$$    $$$     $$$     $$$   $$    $$$  $$$$   $$$           " << endl;
     cout << "           $$$$$$$$$$  $$          $$$  $$$$  $$        $$$$$$$$$$  $$$$@  $$$     $$$     $$$   $$@   $$$  $$$$$  $$$           " << endl;
     cout << "           $$$  $$$    $$$$$       $$$  $$$$  $$$$$     $$$$$$$$$$  $$$$$$$$$$     $$$     $$$$  $$$   $$$  $$$$$$ $$$           " << endl;
@@ -181,16 +189,20 @@ int main(){
     cout << "           $$$   $$$   $$          $$$   $$$  $$      @ $$$    $$$  $$$$           $$$     $$$$  $$$    $$  $$$   $$$$           " << endl;
     cout << "           $$$    $$$  $$$$$$$$$  $$$$$$$$$$  $$$$$$$$$ $$$    $$$  $$$$           $$$     $$$$  $$$$$$$$$  $$$    $$$           " << endl;
     cout << "           $$$    @$$            @$$$$$$$$              $$$    $$   $$$$           $$$     $$$   $$$$$$$$$   $$    $$$           " << endl;
-int dmg_stat = 0;
-int acc_stat = 0;
-int hp_stat = 0;
-int rng_stat = 0;
+srand(time(0));
+int dmgStat = 0;
+int accStat = 0;
+int rngStat = 0;
+int hpStat = 0;
+int hp;
 int cash;
 int clas = 1;
 char opakovat = 'n';
 int vyber = 0;
 int zbranDmg = 0;
 int zbranAcc = 0;
+int heal[2] = {0, 0};
+int randNum = (rand());
 string clothes[5];
 string zbran = "err";
 string classs;
@@ -215,46 +227,46 @@ switch (clas) {
     case 1:
         classs = "Gunslinger";
         cout << "Vybral si postavu " << classs << "." << endl;
-        acc_stat = 3;
-        dmg_stat = 2;
-        hp_stat = 2;
-        rng_stat = 1;
+        accStat = 3;
+        dmgStat = 2;
+        hpStat = 2;
+        rngStat = 1;
         cash = 360;
         break;
     case 2:
         classs = "Outlaw";
         cout << "Vybral si postavu " << classs << "." << endl;
-        acc_stat = 2;
-        dmg_stat = 3;
-        hp_stat = 1;
-        rng_stat = 1;
+        accStat = 2;
+        dmgStat = 3;
+        hpStat = 1;
+        rngStat = 1;
         cash = 420;
         break;
     case 3:
         classs = "Sherif";
         cout << "Vybral si postavu " << classs << "." << endl;
-        acc_stat = 2;
-        dmg_stat = 2;
-        hp_stat = 3;
-        rng_stat = 1;
+        accStat = 2;
+        dmgStat = 2;
+        hpStat = 3;
+        rngStat = 1;
         cash = 350;
         break;
     case 4:
         classs = "Gold Digger";
         cout << "Vybral si postavu " << classs << "." << endl;
-        acc_stat = 1;
-        dmg_stat = 1;
-        hp_stat = 1;
-        rng_stat = 4;
+        accStat = 1;
+        dmgStat = 1;
+        hpStat = 1;
+        rngStat = 4;
         cash = 550;
         break;
     case 5:
         classs = "Test";
         cout << "Vybral si postavu " << classs << "." << endl;
-        acc_stat = 999;
-        dmg_stat = 999;
-        hp_stat = 999;
-        rng_stat = 999;
+        accStat = 999;
+        dmgStat = 999;
+        hpStat = 999;
+        rngStat = 999;
         cash = 6742021;
         break;
         default :
@@ -267,10 +279,10 @@ switch (clas) {
     cout << "----------------------------" << endl;
  }
  cout << "máš:" << endl;
- cout << "přesnost " << acc_stat << endl;
- cout << "poškození " << dmg_stat << endl;
- cout << "životy " << hp_stat << endl;
- cout << "štěsti " << rng_stat << endl;
+ cout << "přesnost " << accStat << endl;
+ cout << "poškození " << dmgStat << endl;
+ cout << "životy " << hpStat << " ("<< hpMax(hpStat) <<"hp)" << endl;
+ cout << "štěsti " << rngStat << endl;
  cout << "note: to že máš životy na 3ce neznamená to že máš 4 životy." << endl;
  cout << "chceš pokračovat s tvojí postavou? (a/n):";
 opakovat=getAn();
@@ -290,7 +302,7 @@ do{
 cout << "Chceš jít do nějákého obchodu?" << endl;
 cout << "   1-Obchod se zbraněmi" << endl;
 cout << "   2-Obchod s oblblečením" << endl;
-cout << "   3-Drugstore" << endl;
+cout << "   3-Řezník" << endl;
 cout << "   4-Jít dál" << endl;
 
 vyber=getVyber(1,4);
@@ -300,6 +312,7 @@ switch (vyber) {                                                                
     case 1 :
     do{
         cout << "Dnešní nabídka:\n";
+        cout << "Tady si můžeš koupit větśí dmg\n";
         cout << "(Note: Když is koupíš zbraň, zahodíš předchozí)\n";
         cout << "1. $350 Schofield (1 dmg)\n";
         cout << "2. $400 Doublebarrel (1 acc)\n";
@@ -342,40 +355,34 @@ break;
 case 2 :                                                             //Obleceni
     do{
         cout << "Dnešní nabídka:\n";
+        cout << "Tady si můžeš zvíśit svoje max hp\n";
         cout << "(Note: Když is koupíš nové oblećení, přidává se k tomu starému)\n";
         cout << "1. $350 Kovbojske Kalohty (+1 Hp)\n";
         cout << "2. $350 Čepice (+1 Hp)\n";
 
-    do{
-    vyber=0;
-    if(vyber<0||vyber>3){
-    cout << "Zadejte cisla 1,2 nebo 3." << endl;
-    }
-cout << "Vyber:";
-cin>> vyber;
-        }while(vyber<0||vyber>3);
+    vyber=getVyber(1,2);
         
     switch (vyber) {
         case 1:
                 if(checkObleceni(2, clothes)){
-            cout << "Už máš tenhle kus oblečeni\n";
+            cout << "Už máš tenhle kus oblečení.\n";
         }else if (cash>=350){
                 cash-=350;
-                getObleceni(2, clothes, hp_stat);
+                getObleceni(2, clothes, hpStat);
                 cout << "+Kovbojske Kalohty\n";
-                cout<<"Máš $" << cash << " a " << hp_stat << "hp levl.\n";
+                cout<<"Máš $" << cash << " a " << hpStat << "hp levl.\n";
             }else{
                 cout<<"Nemáš dost peněz! ($" << cash << ")\n";
             }
         break;
         case 2:
         if(checkObleceni(3, clothes)){
-            cout << "Už máš tenhle kus oblečeni\n";
+            cout << "Už máš tenhle kus oblečení.\n";
         }else if (cash>=350){
                 cash-=350;
-                getObleceni(3, clothes, hp_stat);
+                getObleceni(3, clothes, hpStat);
                 cout << "+Čepice\n";
-                cout<<"Máš $" << cash << " a " << hp_stat << "hp levl.\n";
+                cout<<"Máš $" << cash << " a " << hpStat << "hp levl.\n";
             }else{
                 cout<<"Nemáš dost peněz! ($" << cash << ")\n";
             }
@@ -388,14 +395,56 @@ cin>> vyber;
         break;
 }
     cout << "chceš pokračovat? (a/n):";
-
     opakovat=getAn();
 
 }while(opakovat=='n');
 break;
 
+    case 3 :
+    do{
+        cout << "Dnešní nabídka:\n";
+        cout << "Tady si můžeš koupit healy do fightů.\n";
+        cout << "1. $150 Zavaŕovaný Ananas (+25 % max hp)\n";
+        cout << "2. $350 Marinované Hovézí (+100 % max hp)\n";
 
-    default : 
+    vyber=getVyber(1,2);
+        
+    switch (vyber) {
+        case 1:
+            if (cash>=150){
+                cash-=150;
+                ++heal[vyber];
+                cout << "+Zavaŕovaný Ananas\n";
+                cout<<"Máš $" << cash << ".\n";
+            }else{
+                cout<<"Nemáš dost peněz! ($" << cash << ")\n";
+            }
+        break;
+        case 2:
+         if (cash>=350){
+                cash-=350;
+                ++heal[vyber];
+                cout << "+Marinované Hovézí\n";
+                cout<<"Máš $" << cash << ".\n";
+            }else{
+                cout<<"Nemáš dost peněz! ($" << cash << ")\n";
+            }
+        break;
+
+        default : 
+            cout << "----------------------------\n\n\n";
+            cout << "Spatny Input: RESTARTUJ HRU!\n\n\n";
+            cout << "----------------------------\n";
+        break;
+}
+    cout << "Chceš pokračovat? (a/n):";
+    opakovat=getAn();
+}while(opakovat=='n');
+break;
+
+case 4:break;
+
+default : 
         cout << "----------------------------\n\n\n";
         cout << "Spatny Input: RESTARTUJ HRU!\n\n\n";
         cout << "----------------------------\n";
@@ -403,4 +452,24 @@ break;
 }
 }
 }while(vyber != 4);
+cout << "Při cestě zpátky domů na tebe v málé uličce vyběhl\nmaskovaný chlap, s nepřívětivým pohledem.\n";
+enter();
+cout << "Zamířil na tebe svím revolverem a řekl:\n";
+enter();
+cout << "DEŠ SE MNOU!!\n";
+enter();
+cout << "Co uděláš?:\n";
+cout << "1. Budeś bojovat proti němu. (Tutoriál)\n";
+cout << "2. Utečeš mu.\n";
+vyber=getVyber(1,2);
+if(vyber==1){
+
+}else{
+if(randNum >= 50){
+
+}else{
+
+}
+
+}
 }
