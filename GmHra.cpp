@@ -29,7 +29,7 @@ struct Boss { //1.oheň 2.země 3.vítr 4.voda
 int hp;
 int hpMax;
 int actt;
-string act[4] = {"ohně", "země", "větru", "vody"};
+string act[5] = {"null", "ohně", "země", "větru", "vody"};
 } boss;
 
 void enter() {
@@ -97,7 +97,7 @@ int hpP() {
 
 void bossAtt(){
     int vyber;
-    boss.actt=rand()%3+1;
+    boss.actt=rand()%4+1;
     cout << "Quadratera utočí pomocí " << boss.act[boss.actt] << ".\n";
     cout << "-1.Použiješ item...\n";
     cout << "-2.Přemístíš se na...\n";
@@ -198,7 +198,7 @@ void bossAtt(){
             cout << "Stoupl sis na místo ohně.\n";
             switch(boss.actt){
                 case 1:
-                   player.hp -= player.hp*0.9;
+                   player.hp -= player.hp*0.1;
                     cout << "Zbylo ti 10 % zbylích životů. (" << player.hp << ")\n";
                 break;
                 case 2:
@@ -269,7 +269,7 @@ void bossAtt(){
                     cout << "Quadraterra -50 hp.\n";
                 break;
                 case 4:
-                    player.hp -= player.hp*0.9;
+                    player.hp -= player.hp*0.1;
                     cout << "Zbylo ti 10 % zbylích životů. (" << player.hp << ")\n";
                 break;
             }
@@ -547,10 +547,9 @@ srand(time(0));
 
 int cash;
 int heal[3] = {0, 0, 0};
-string clothes[5];
+string clothes[7];
 int clas = 1;
 string classs;
-int randNum = (rand());
 char opakovat = 'n';
 int vyber = 0;
 zbran.dmg = 0;
@@ -835,7 +834,7 @@ switch(vyber){
         doHeal(25);
     break;
     case 4:
-        heal[2]-=2;
+        heal[2]-=1;
         doHeal(100);
     break;
     default :
@@ -882,7 +881,7 @@ if(rand()%10 < 2){
         enter();
         }
     }
-} else if (randNum >= 50){
+} else if (rand() >= 50){
 cout << "Neznámý muž tě střelil do zad když si utíkal a ty si v bolesti spadl na zem.";
 player.hp-=10;
 enter();
@@ -2048,6 +2047,9 @@ enter();
 cout << "Quarterra začíná.";
 enter();
 
+boss.hpMax = 100;
+boss.hpMax = 10;
+
 while(boss.hp > 0 && player.hp > 0) {  //boss
 
 bossAtt();
@@ -2057,15 +2059,24 @@ cout << "1. Střelit ADS\n";
 cout << "2. Střelit Hip-Firem\n";
 cout << "3. Menší heal ("<< heal[1] <<")\n";
 cout << "4. Větší heal ("<< heal[2] <<")\n";
-cout << "[Nepřítel má: " << enemy1.hp <<"hp]\n";
+cout << "[Nepřítel má: " << boss.hp <<"hp]\n";
 
 vyber=getVyber(1, 4);
 switch(vyber){
     case 1:
-        hitEnemy(enemy1, 1);
+    vyber = rand()%11 + 10 + (player.dmgStat*6);
+    boss.hp -= vyber;
+    cout <<"Quadraterra -" << vyber << "hp\n";
     break;
     case 2:
-        hipEnemy(enemy1, 1);
+    if(rand()%100 + playerAcc()*5 > 40) {
+    vyber = rand()%16 + 10 + (playerDmg()*4)*1.2;
+    boss.hp -= vyber;
+    cout << "Quadraterra -" << vyber << "hp\n";
+        }
+    }else {
+        cout << "Vedle!\n";
+    }
     break;
     case 3:
     if(heal[1]>0) {
